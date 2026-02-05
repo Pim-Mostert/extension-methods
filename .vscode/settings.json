@@ -1,5 +1,9 @@
 {
     "python.analysis.typeCheckingMode": "standard",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "always",
+        "source.organizeImports.ruff": "always"
+    },
     "python.testing.pytestArgs": [
         "tests"
     ],
