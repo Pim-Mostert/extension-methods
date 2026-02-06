@@ -7,7 +7,17 @@ authors = [
     { name = "Pim Mostert", email = "pim.mostert@pimmostert.com" }
 ]
 requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
 dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/Pim-Mostert/extension-methods"
+Issues = "https://github.com/Pim-Mostert/extension-methods/issues"
 
 [build-system]
 requires = ["setuptools", "wheel", "setuptools-scm"]
