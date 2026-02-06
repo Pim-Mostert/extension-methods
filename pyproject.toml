@@ -1,17 +1,33 @@
 [project]
 name = "extension-methods"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Add your description here"
 readme = "README.md"
 authors = [
     { name = "Pim Mostert", email = "pim.mostert@pimmostert.com" }
 ]
 requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
 dependencies = []
 
-[project.scripts]
-extension-methods = "extension_methods:main"
+[project.urls]
+Homepage = "https://github.com/Pim-Mostert/extension-methods"
+Issues = "https://github.com/Pim-Mostert/extension-methods/issues"
 
 [build-system]
-requires = ["uv_build>=0.9.26,<0.10.0"]
-build-backend = "uv_build"
+requires = ["setuptools", "wheel", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.2",
+]
+
+[tool.setuptools_scm]
+tag_regex = 'v(\d+\.\d+\.\d+)$' # vX.Y.Z (major, minor, patch)
