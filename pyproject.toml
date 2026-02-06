@@ -1,5 +1,5 @@
 [project]
-name = "extension-methods"
+name = "extensionmethods"
 dynamic = ["version"]
 description = "Add your description here"
 readme = "README.md"
@@ -16,8 +16,8 @@ license-files = ["LICEN[CS]E*"]
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/Pim-Mostert/extension-methods"
-Issues = "https://github.com/Pim-Mostert/extension-methods/issues"
+Homepage = "https://github.com/Pim-Mostert/extensionmethods"
+Issues = "https://github.com/Pim-Mostert/extensionmethods/issues"
 
 [build-system]
 requires = ["setuptools", "wheel", "setuptools-scm"]

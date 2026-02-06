@@ -30,7 +30,7 @@ wheels = [
 ]
 
 [[package]]
-name = "extension-methods"
+name = "extensionmethods"
 source = { editable = "." }
 
 [package.dev-dependencies]

@@ -1,6 +1,6 @@
 import pytest
 
-from extension_methods import extension
+from extensionmethods import extension
 
 
 def test_extension():
