@@ -72,6 +72,7 @@ jobs:
 
       - name: Install package
         run: |
+          uv venv
           uv pip install dist/*.whl
           uv pip install pytest
 
