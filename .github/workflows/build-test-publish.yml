@@ -12,7 +12,7 @@ env:
   UV_VERSION: "0.9.7"
 
 jobs:
-  build-package:
+  build:
     name: Build package
     runs-on: "ubuntu-latest"
 
@@ -42,11 +42,11 @@ jobs:
           name: python-package-distributions
           path: dist/
 
-  test-package:
+  test:
     name: Test package
     runs-on: "ubuntu-latest"
     needs:
-      - build-package
+      - build
     strategy:
       matrix:
         python-version:
@@ -82,3 +82,27 @@ jobs:
       - name: Test with pytest
         run: |
           uv run pytest
+
+  publish-testpypi:
+    name: Publish to TestPyPI
+    needs:
+      - test
+    runs-on: ubuntu-latest
+
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/extensionmethods
+
+    permissions:
+      id-token: write # IMPORTANT: mandatory for trusted publishing
+
+    steps:
+      - name: Download all the dists
+        uses: actions/download-artifact@v6
+        with:
+          name: python-package-distributions
+          path: dist/
+      - name: Publish distribution to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
