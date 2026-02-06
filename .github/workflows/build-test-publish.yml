@@ -26,7 +26,6 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           version: ${{ env.UV_VERSION }}
-          python-version: "3.x"
 
       - name: Set up Python
         run: uv python install
