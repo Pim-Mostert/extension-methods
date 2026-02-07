@@ -85,6 +85,7 @@ jobs:
 
   publish-testpypi:
     name: Publish to TestPyPI
+    if: startsWith(github.ref, 'refs/tags/') # only publish on tag pushes
     needs:
       - test
     runs-on: ubuntu-latest
@@ -110,7 +111,7 @@ jobs:
 
   # publish-pypi:
   #   name: Publish to PyPI
-  #   if: startsWith(github.ref, 'refs/tags/') # only publish to PyPI on tag pushes
+  #   if: startsWith(github.ref, 'refs/tags/') # only publish on tag pushes
   #   needs:
   #     - publish-testpypi
   #   runs-on: ubuntu-latest

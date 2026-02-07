@@ -1,10 +1,10 @@
-# `extensionmethods`
+# extensionmethods
 
 Mimics C#-style extension methods in Python.
 
 `extensionmethods` is a tiny package that lets you “attach” functions to existing types without modifying their source code, enabling method-like syntax, better chaining, and cleaner separation of optional dependencies.
 
-- [`extensionmethods`](#extensionmethods)
+- [extensionmethods](#extensionmethods)
   - [Example usage](#example-usage)
   - [Type safety and type checking](#type-safety-and-type-checking)
   - [Installation](#installation)
