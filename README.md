@@ -7,12 +7,12 @@ Mimics C#-style extension methods in Python.
 - [extensionmethods](#extensionmethods)
   - [Example usage](#example-usage)
   - [Type safety and type checking](#type-safety-and-type-checking)
+  - [IDE integration](#ide-integration)
   - [Installation](#installation)
   - [Why use extension methods?](#why-use-extension-methods)
     - [Readability through chaining](#readability-through-chaining)
     - [Modularity and dependency isolation](#modularity-and-dependency-isolation)
   - [Known caveats](#known-caveats)
-    - [IDE type hints may be misleading](#ide-type-hints-may-be-misleading)
     - [Uses the `|` operator (`__ror__`)](#uses-the--operator-__ror__)
   - [License](#license)
 
@@ -92,6 +92,12 @@ This gives you safety at two levels:
     >>> "hello" | double()
     TypeError: Extension 'double' can only be used on 'int', not 'str'
     ```
+
+## IDE integration
+
+The extension methods supports docstrings and code suggestions in your IDE:
+
+![IDE Integration](./docs/images/ide_integration.jpg)
 
 ## Installation
 
@@ -178,18 +184,6 @@ Now:
 - Functionality stays logically grouped
 
 ## Known caveats
-
-### IDE type hints may be misleading
-
-Editors like VS Code may show hover/type information for the decorator wrapper, not the original function.
-
-```python
-@extension(to=int)
-def double(x: int) -> int:
-    return x * 2
-```
-
-Hovering `double` may not show the expected signature `(x: int) -> int`, but instead `(function) double: ExtensionDecoratorFactory[int]`.
 
 ### Uses the `|` operator (`__ror__`)
 
