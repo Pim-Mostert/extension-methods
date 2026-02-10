@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
     { name = "Pim Mostert", email = "pim.mostert@pimmostert.com" }
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",

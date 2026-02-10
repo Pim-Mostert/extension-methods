@@ -1,20 +1,20 @@
-from functools import wraps
-from typing import Any, Callable, Generic, Type, TypeVar
-
-T = TypeVar("T")
+from typing import Callable, Concatenate, Type, cast
 
 
-class ExtensionDecorator(Generic[T]):
-    def __init__(self, func: Callable[..., Any], args, kwargs, to: Type[T]):
+class Extension[TIn, **P, TOut]:
+    def __init__(
+        self,
+        to: Type[TIn],
+        func: Callable[Concatenate[TIn, P], TOut],
+        *args: P.args,
+        **kwargs: P.kwargs,
+    ):
         self._func = func
         self._to = to
         self._args = args
         self._kwargs = kwargs
 
-    def __call__(self, _: Any) -> Any:
-        raise NotImplementedError("Don't call an extension method directly.")
-
-    def __ror__(self, other: T) -> Any:
+    def __ror__(self, other: TIn) -> TOut:
         if not isinstance(other, self._to):
             raise TypeError(
                 f"Extension '{self._func.__name__}' can only be used on '{self._to.__name__}', "
@@ -24,21 +24,15 @@ class ExtensionDecorator(Generic[T]):
         return self._func(other, *self._args, **self._kwargs)
 
 
-class ExtensionDecoratorFactory(Generic[T]):
-    def __init__(self, func: Callable[..., Any], to: Type[T]):
-        self._func = func
-        self._to = to
+def extension[TIn](to: Type[TIn]):
+    def wrapper[**P, TOut](
+        func: Callable[Concatenate[TIn, P], TOut],
+    ):
+        def extension_factory(
+            *args: P.args, **kwargs: P.kwargs
+        ) -> Extension[TIn, P, TOut]:
+            return Extension(to, func, *args, **kwargs)
 
-        wraps(func)(self)
-
-    def __call__(self, *args, **kwargs) -> ExtensionDecorator[T]:
-        return ExtensionDecorator(self._func, args, kwargs, self._to)
-
-
-def extension(
-    *, to: Type[T]
-) -> Callable[[Callable[..., Any]], ExtensionDecoratorFactory[T]]:
-    def wrapper(func: Callable[..., Any]) -> ExtensionDecoratorFactory[T]:
-        return ExtensionDecoratorFactory(func, to)
+        return cast(Callable[P, TOut], extension_factory)
 
     return wrapper
