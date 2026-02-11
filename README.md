@@ -6,8 +6,7 @@ Mimics C#-style extension methods in Python.
 
 - [extensionmethods](#extensionmethods)
   - [Example usage](#example-usage)
-  - [Type safety and type checking](#type-safety-and-type-checking)
-  - [IDE integration](#ide-integration)
+  - [Type safety and IDE integration](#type-safety-and-ide-integration)
   - [Installation](#installation)
   - [Why use extension methods?](#why-use-extension-methods)
     - [Readability through chaining](#readability-through-chaining)
@@ -40,7 +39,7 @@ With the `extensionmethods` package you can achieve similiar functionality like 
 ```python
 from extensionmethods import extension
 
-@extension(to=int)
+@extension
 def double(x: int) -> int:
     return x * 2
 
@@ -51,7 +50,7 @@ print(result)  # 14
 With parameters:
 
 ```python
-@extension(to=int)
+@extension
 def add_then_multiply(x: int, to_add: int, to_multiply: int) -> int:
     return (x + to_add) * to_multiply
 
@@ -61,41 +60,17 @@ print(result)  # 54
 
 The value on the left side becomes the first argument of the function.
 
-## Type safety and type checking
+## Type safety and IDE integration
 
-The extension methods are type-aware.
-
-When you declare an extension, you bind it to a specific type:
+The extension methods are type-aware, based on the type of their first parameter. Type checkers and editors can detect incorrect usage:
 
 ```python
-@extension(to=int)
-def double(x: int) -> int:
-    return x * 2
+"hello" | double()  # type error
 ```
 
-This gives you safety at two levels:
+Your IDE (e.g. VS Code) can flag this because the extension has its first argument of type `int`, not `str`.
 
-- **IDE / static type checking**
-    Type checkers and editors can detect incorrect usage:
-
-    ```python
-    "hello" | double()  # type error
-    ```
-
-    Your IDE (e.g. VS Code) can flag this because the extension is declared for `int`, not `str`.
-
-- **Runtime enforcement**
-
-    Even if type checking is bypassed, the library validates the type at runtime:
-
-    ```python
-    >>> "hello" | double()
-    TypeError: Extension 'double' can only be used on 'int', not 'str'
-    ```
-
-## IDE integration
-
-The extension methods supports docstrings and code suggestions in your IDE:
+Furtermore, the extension methods support docstrings and code suggestions in your IDE:
 
 ![IDE Integration](./docs/images/ide_integration.jpg)
 

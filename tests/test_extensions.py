@@ -1,11 +1,9 @@
-import pytest
-
 from extensionmethods import extension
 
 
 def test_extension():
     # Assign
-    @extension(to=int)
+    @extension
     def double(x: int) -> int:
         return x * 2
 
@@ -16,9 +14,20 @@ def test_extension():
     assert output == 7 * 2
 
 
+@extension
+def add(x: int, to_add: int) -> int:
+    """
+    Adds to the input.
+    """
+    return x + to_add
+
+
+output = 7 | add(11)
+
+
 def test_extension_single_parameter():
     # Assign
-    @extension(to=int)
+    @extension
     def add(x: int, to_add: int) -> int:
         return x + to_add
 
@@ -31,7 +40,7 @@ def test_extension_single_parameter():
 
 def test_extension_two_parameters():
     # Assign
-    @extension(to=int)
+    @extension
     def add_then_multiply(x: int, to_add: int, to_multiply: int) -> int:
         return (x + to_add) * to_multiply
 
@@ -40,14 +49,3 @@ def test_extension_two_parameters():
 
     # Assert
     assert (7 + 11) * 3 == output
-
-
-def test_extension_wrong_type():
-    # Assign
-    @extension(to=str)
-    def upper(x: str) -> str:
-        return x.upper()
-
-    # Act
-    with pytest.raises(TypeError):
-        _ = 1 | upper()  # pyright: ignore[reportOperatorIssue]
